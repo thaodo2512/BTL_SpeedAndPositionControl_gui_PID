@@ -204,36 +204,7 @@ namespace BTL_SpeedAndPositionControl
 
         }
 
-        // set SP posistion
-        private void SetPointPosistion_Click(object sender, EventArgs e)
-        {
-            String SP_Position_string = textBox6.Text;
-
-            // convert posistion from string to float 
-            if (float.TryParse(SP_Position_string, out float convert_pos)) {
-                 Get_position_SP = BitConverter.GetBytes(convert_pos);
-            }
-
-            byte command1 = 3;
-            byte[] Set_position = new byte[10];
-            Set_position[0] = dummy;
-            Set_position[1] = version;
-            Set_position[2] = command1;
-            Set_position[3] = flag;
-            Set_position[4] = 10;
-            Set_position[5] = CRC;
-            Set_position[6] = Get_position_SP[0]; ;
-            Set_position[7] = Get_position_SP[1]; ;
-            Set_position[8] = Get_position_SP[2]; ;
-            Set_position[9] = Get_position_SP[3]; ;
-            
-            if (serialPort1.IsOpen)
-            {
-                serialPort1.Write(Set_position, 0, Set_position.Length);
-            }
-            
-
-        }
+        
 
         // set SP speed
         private void SetPointSpeed_Click(object sender, EventArgs e)
@@ -266,85 +237,7 @@ namespace BTL_SpeedAndPositionControl
             }
         }
 
-        // Set Kp, Ki, Kd for Speed
-        private void btnSetPIDSpeed_Click(object sender, EventArgs e)
-        {
-            String Set_Kp_String = textBox16.Text;
-            if (float.TryParse(Set_Kp_String, out float convert_Kp))
-            {
-                Get_Kp = BitConverter.GetBytes(convert_Kp);
-            }
-            
-            String Set_Ki_String = textBox15.Text;
-            if (float.TryParse(Set_Ki_String, out float convert_Ki))
-            {
-                Get_Ki = BitConverter.GetBytes(convert_Ki);
-            }
-            Byte command_Set_Kp_Ki = 8;
-            Byte[] Set_Kp_Ki = new byte[14];
-            Set_Kp_Ki[0] = dummy;
-            Set_Kp_Ki[1] = version;
-            Set_Kp_Ki[2] = command_Set_Kp_Ki;
-            Set_Kp_Ki[3] = flag;
-            Set_Kp_Ki[4] = len1;
-            Set_Kp_Ki[5] = CRC;
-            Set_Kp_Ki[6] = Get_Kp[0];
-            Set_Kp_Ki[7] = Get_Kp[1];
-            Set_Kp_Ki[8] = Get_Kp[2];
-            Set_Kp_Ki[9] = Get_Kp[3];
-            Set_Kp_Ki[10] = Get_Ki[0];
-            Set_Kp_Ki[11] = Get_Ki[1];
-            Set_Kp_Ki[12] = Get_Ki[2];
-            Set_Kp_Ki[13] = Get_Ki[3];
-
-
-            if (serialPort1.IsOpen)
-            {
-                serialPort1.Write(Set_Kp_Ki, 0, Set_Kp_Ki.Length);
-            }
-            Array.Clear(Get_Kd, 0, Get_Kd.Length);
-            Array.Clear(Get_Ki, 0, Get_Ki.Length);
-        }
-
-        private void BtnSetPIDPosistion_Click(object sender, EventArgs e)
-        {
-            String Set_Kp_String = textBox4.Text;
-            if (float.TryParse(Set_Kp_String, out float convert_Kp))
-            {
-                Get_Kp = BitConverter.GetBytes(convert_Kp);
-            }
-
-            String Set_Ki_String = textBox3.Text;
-            if (float.TryParse(Set_Ki_String, out float convert_Ki))
-            {
-                Get_Ki = BitConverter.GetBytes(convert_Ki);
-            }
-            Byte command_Set_Kp_Ki = 8;
-            Byte[] Set_Kp_Ki = new byte[14];
-            Set_Kp_Ki[0] = dummy;
-            Set_Kp_Ki[1] = version;
-            Set_Kp_Ki[2] = command_Set_Kp_Ki;
-            Set_Kp_Ki[3] = flag;
-            Set_Kp_Ki[4] = len1;
-            Set_Kp_Ki[5] = CRC;
-            Set_Kp_Ki[6] = Get_Kp[0];
-            Set_Kp_Ki[7] = Get_Kp[1];
-            Set_Kp_Ki[8] = Get_Kp[2];
-            Set_Kp_Ki[9] = Get_Kp[3];
-            Set_Kp_Ki[10] = Get_Ki[0];
-            Set_Kp_Ki[11] = Get_Ki[1];
-            Set_Kp_Ki[12] = Get_Ki[2];
-            Set_Kp_Ki[13] = Get_Ki[3];
-         
-
-            if (serialPort1.IsOpen)
-            {
-                serialPort1.Write(Set_Kp_Ki, 0, Set_Kp_Ki.Length);
-            }
-            Array.Clear(Get_Kp, 0, Get_Kp.Length);
-            Array.Clear(Get_Ki, 0, Get_Ki.Length);
-
-        }
+        
 
         private void comboCom_SelectedIndexChanged(object sender, EventArgs e)
         {
